@@ -13,40 +13,44 @@ function ToDoItem({ task, deleteTask, toggleComplete, editTask }) {
 
   return (
     <div
-      className={`flex justify-between items-center p-4 rounded-xl shadow-md mb-4 transition-all duration-300 hover:shadow-lg ${
+      className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 rounded-xl shadow-md mb-4 transition-all duration-300 hover:shadow-lg ${
         task.completed
           ? "bg-green-50 border-l-4 border-green-500"
           : "bg-white"
       }`}
     >
-      {isEditing ? (
-        <input
-          type="text"
-          value={updatedText}
-          onChange={(e) => setUpdatedText(e.target.value)}
-          className="flex-1 border-2 border-blue-300 px-3 py-2 rounded-lg mr-3 focus:outline-none focus:border-blue-500"
-        />
-      ) : (
-        <div className="flex-1">
-          <p
-            className={`font-medium text-lg ${
-              task.completed
-                ? "line-through text-gray-500"
-                : "text-gray-800"
-            }`}
-          >
-            {task.text}
-          </p>
+      {/* Task Content */}
+      <div className="flex-1 min-w-0">
+        {isEditing ? (
+          <input
+            type="text"
+            value={updatedText}
+            onChange={(e) => setUpdatedText(e.target.value)}
+            className="w-full border-2 border-blue-300 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+          />
+        ) : (
+          <>
+            <p
+              className={`font-medium text-lg break-words ${
+                task.completed
+                  ? "line-through text-gray-500"
+                  : "text-gray-800"
+              }`}
+            >
+              {task.text}
+            </p>
 
-          {task.completed && (
-            <span className="text-green-600 text-sm font-semibold">
-              ✓ Completed
-            </span>
-          )}
-        </div>
-      )}
+            {task.completed && (
+              <span className="text-green-600 text-sm font-semibold">
+                ✓ Completed
+              </span>
+            )}
+          </>
+        )}
+      </div>
 
-      <div className="flex gap-2 ml-3">
+      {/* Buttons */}
+      <div className="flex flex-wrap gap-2 sm:justify-end">
         <button
           onClick={() => toggleComplete(task.id)}
           className={`px-3 py-2 rounded-lg text-white font-medium transition ${
@@ -84,6 +88,8 @@ function ToDoItem({ task, deleteTask, toggleComplete, editTask }) {
     </div>
   );
 }
+
+
 
 
 
